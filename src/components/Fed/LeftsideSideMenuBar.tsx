@@ -48,7 +48,7 @@ const LeftsideSideMenuBar = () => {
         <div className="bg-[#563A9C] flex w-full flex-col px-[15px] py-[15px] h-full">
             <div className="flex flex-row justify-between items-center w-full py-[10px] h-[13vh]">
                 <div className="flex justify-center items-center">
-                    <p className="text-[24px] font-[700] leading-[24px] text-[#ffffff]"> FED </p>
+                    <p className="text-[24px] font-[700] leading-[24px] text-[#ffffff]"> FED !</p>
                 </div>
                 <div className="flex">
                     <button className="cursor-pointer border border-white rounded-[4px] h-[40px] w-[40px] flex justify-center items-center" >
