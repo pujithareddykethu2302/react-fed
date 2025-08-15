@@ -6,12 +6,10 @@ import LeftsideSideMenuBar from "./Fed/LeftsideSideMenuBar";
 const Layout = () => {
     return (
         <div className="flex w-full h-screen overflow-hidden">
-            {/* Fixed Sidebar - full height */}
             <div className="w-[15%] h-full">
                 <LeftsideSideMenuBar />
             </div>
 
-            {/* Main content area changes with route */}
             <div className=" w-[85%] flex-1 p-4 overflow-auto">
                 <Outlet />
             </div>

@@ -9,6 +9,8 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import WbIncandescentOutlinedIcon from '@mui/icons-material/WbIncandescentOutlined';
+import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
 
 const LeftsideSideMenuBar = () => {
     const SideMenuData = [
@@ -18,17 +20,17 @@ const LeftsideSideMenuBar = () => {
             path: "/"
         },
         {
-            title: "To-Do List",
+            title: "Custom Challenge",
+            icon: <WbIncandescentOutlinedIcon sx={{ color: "white" }} fontSize="small"/>,
+            path: "/custom-challeneg"
+        },
+        {
+            title: "My Goals",
             icon: <ChecklistIcon sx={{ color: "white" }} fontSize="small" />,
-            path: "/to-do-list"
+            path: "/add-goals"
         },
         {
-            title: "Calender",
-            icon: <CalendarMonthIcon sx={{ color: "white" }} fontSize="small" />,
-            path: "/Calender"
-        },
-        {
-            title: "30-Days Challenge React",
+            title: "Challenge Hub",
             icon: <MilitaryTechIcon sx={{ color: "white" }} fontSize="small" />,
             path: "/30-days-challenge"
         },
@@ -41,6 +43,11 @@ const LeftsideSideMenuBar = () => {
             title: "About Us",
             icon: <InfoIcon sx={{ color: "white" }} fontSize="small" />,
             path: "/about-us"
+        },
+        {
+            title: "Resources",
+            icon: <LibraryBooksOutlinedIcon sx={{ color: "white" }} fontSize="small" />,
+            path: "/Resources"
         }
     ]
     return (
