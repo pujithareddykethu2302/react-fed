@@ -1,5 +1,4 @@
-import Skeleton from "@mui/material/Skeleton";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CardSkeleton from "../../Common/Skeleton";
 import NoData from "../../../assets/Images/ChallengesPage/Empty-cuate.svg"
 import { useState } from "react";
