@@ -89,7 +89,7 @@ const DisplayCard = ({ CardsData, searchData, loading }: Data) => {
                 <div className="flex flex-col justify-center items-center h-screen">
                     <img src={NoData} className="w-[30rem] h-[30rem]" alt="No data" />
                     <p className="mt-4 text-[#563A9C] text-lg font-semibold">
-                        No challenges found
+                        No Data
                     </p>
                 </div>
             )}
