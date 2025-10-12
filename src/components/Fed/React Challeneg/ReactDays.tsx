@@ -48,7 +48,7 @@ const ReactDays = () => {
                 <p className='font-[700] text-[32px] text-center w-[51%] text-[#e6ab34]'>Welcome to the 30-Day React Challenge <span> — let’s build something amazing, one day at a time!</span></p>
             </div> */}
 
-            <DisplayCard CardsData={CardsData} searchData={searchData} loading={loading} headerUpdate={headerUpdate}/>
+            <DisplayCard CardsData={CardsData} searchData={searchData} loading={loading} headerUpdate={headerUpdate}   setCardsData={setCardsData}/>
 
 
         </div>

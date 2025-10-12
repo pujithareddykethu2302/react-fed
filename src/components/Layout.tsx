@@ -1,7 +1,7 @@
 // Layout.tsx
 import { Outlet } from "react-router-dom";
 import Dashboard from "./Fed/Dashboard/Dashboard";
-import LeftsideSideMenuBar from "./Fed/LeftsideSideMenuBar";
+import LeftsideSideMenuBar from "./Fed/MenuBarSide/LeftsideSideMenuBar";
 
 const Layout = () => {
     return (
