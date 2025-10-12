@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CardSkeleton from "../../Common/Skeleton";
 import NoData from "../../../assets/Images/ChallengesPage/Empty-cuate.svg";
 import { useState } from "react";
@@ -10,12 +10,14 @@ interface Data {
   searchData: string;
   loading: boolean;
   headerUpdate: boolean;
+  setCardsData: any;
 }
 const DisplayCard = ({
   CardsData,
   searchData,
   loading,
   headerUpdate,
+  setCardsData,
 }: Data) => {
   const SearchFilterData = CardsData.filter((items: any) => {
     return (
@@ -26,7 +28,7 @@ const DisplayCard = ({
     );
   });
   const DisplayData = searchData.trim() ? SearchFilterData : CardsData;
-
+  const navigate = useNavigate();
   const [CurrentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
   const TotalPages = Math.ceil(DisplayData.length / pageSize);
@@ -36,6 +38,32 @@ const DisplayCard = ({
   const endIndex = startIndex + pageSize;
 
   const AfterPaginationDisplayData = DisplayData.slice(startIndex, endIndex);
+
+  const handleStart = async (challenge: any) => {
+    try {
+      await fetch(`http://localhost:3001/days/${challenge.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "In Progress" }),
+      });
+
+      setCardsData((prev: any) =>
+        prev.map((c: any) =>
+          c.id === challenge.id ? { ...c, status: "In Progress" } : c
+        )
+      );
+      navigate(
+        `/30-days-challenge/challenge-details/${challenge.dayChallenge
+          .replace(/\s+/g, "-")
+          .toLowerCase()}`,
+        {
+          state: { ...challenge, status: "In Progress" },
+        }
+      );
+    } catch (error) {
+      console.error("Error updating challenge:", error);
+    }
+  };
 
   return (
     <>
@@ -90,11 +118,38 @@ const DisplayCard = ({
                         {items.topic}
                       </p>
                     </div>
-                    <div className="w-[6rem] h-[1.5rem] bg-[#FFF2F3] flex items-center justify-center rounded-[8px] border border-[#DF001A] mb-[10px]">
-                      <p className="text-gray-500 text-[10px]">
+                    <div
+                      className={`w-[6rem] h-[1.5rem] flex items-center justify-center rounded-[8px] mb-[10px] border`}
+                      style={{
+                        backgroundColor:
+                          items.status === "In Progress"
+                            ? "#FFF8E1"
+                            : items.status === "Completed"
+                            ? "#E8F5E9"
+                            : "#FFF2F3",
+                        borderColor:
+                          items.status === "In Progress"
+                            ? "#FBC02D"
+                            : items.status === "Completed"
+                            ? "#1E7F55"
+                            : "#DF001A",
+                      }}
+                    >
+                      <p
+                        className="text-[10px] font-[500]"
+                        style={{
+                          color:
+                            items.status === "In Progress"
+                              ? "#FBC02D"
+                              : items.status === "Completed"
+                              ? "#1E7F55"
+                              : "#DF001A",
+                        }}
+                      >
                         {items.status}
                       </p>
                     </div>
+
                     <p className="text-[14px] font-[400] leading-[24px] mb-[10px]">
                       {items.longDescription}
                     </p>
@@ -145,8 +200,15 @@ const DisplayCard = ({
                     </div>
 
                     <div className="w-full flex justify-end mt-[20px]">
-                      <button className="bg-[#563A9C] rounded-[4px] text-white w-[10rem] h-[2.5rem] cursor-pointer">
-                        <Link to="/day1"> Start Now</Link>
+                      <button
+                        className="bg-[#563A9C] rounded-[4px] text-white w-[10rem] h-[2.5rem] cursor-pointer"
+                        onClick={() => handleStart(items)}
+                      >
+                        {items.status === "In Progress"
+                          ? "Continue"
+                          : items.status === "Completed"
+                          ? "Completed"
+                          : "Start Now"}
                       </button>
                     </div>
                   </div>

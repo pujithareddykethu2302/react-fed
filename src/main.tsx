@@ -7,6 +7,7 @@ import ReactDays from './components/Fed/React Challeneg/ReactDays.tsx'
 // import Dashboard from './components/Fed/Dashboard/Dashboard.tsx'
 import Layout from './components/Layout.tsx'
 import Dashboard from './components/Fed/Dashboard/Dashboard.tsx'
+import ChallengeDetails from './components/Fed/ChallengeDetails/ChallengeDetails.tsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/30-days-challenge',
         element: <ReactDays />
+      },
+      {
+        path: '/30-days-challenge/challenge-details/:id',
+        element: <ChallengeDetails />
       }
     ]
   }

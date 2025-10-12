@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import LeftsideSideMenuBar from '../LeftsideSideMenuBar'
+import LeftsideSideMenuBar from '../MenuBarSide/LeftsideSideMenuBar'
 
 const Dashboard = () => {
   const [sideBarMenuToggle, setSideBarMenuToggle] = useState(true)
