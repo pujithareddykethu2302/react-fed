@@ -27,7 +27,7 @@
       "difficulty": "Easy",
       "timeEstimate": "20–25 mins",
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-      "status": "Not Started"
+      "status": "Completed"
     },
     {
       "id": "3",
@@ -39,7 +39,7 @@
       "difficulty": "Easy",
       "timeEstimate": "20–25 mins",
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-      "status": "Not Started"
+      "status": "In Progress"
     },
     {
       "id": "4",
@@ -51,7 +51,7 @@
       "difficulty": "Easy",
       "timeEstimate": "25–30 mins",
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-      "status": "Not Started"
+      "status": "In Progress"
     },
     {
       "id": "5",
@@ -63,7 +63,7 @@
       "difficulty": "Easy",
       "timeEstimate": "20–25 mins",
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-      "status": "Not Started"
+      "status": "In Progress"
     },
     {
       "id": "6",
@@ -75,7 +75,7 @@
       "difficulty": "Easy",
       "timeEstimate": "25–30 mins",
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-      "status": "Not Started"
+      "status": "In Progress"
     },
     {
       "id": "7",
