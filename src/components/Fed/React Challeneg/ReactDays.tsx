@@ -2,7 +2,7 @@ import { useState } from "react";
 import DisplayCard from "./DisplayCard";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import { useChallenges } from "../../Common/challengeContext";
+import { useChallenges } from "../../Common/ChallengeContext";
 
 const ReactDays = () => {
   const { CardsData, setCardsData, loading } = useChallenges();

@@ -4,7 +4,8 @@ import NoData from "../../../assets/Images/ChallengesPage/Empty-cuate.svg";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { useChallenges } from "../../Common/challengeContext";
+import { useChallenges } from "../../Common/ChallengeContext";
+
 
 interface Data {
   searchData: string;
@@ -127,7 +128,7 @@ const handleStart = (challenge: any) => {
                     </div>
 
                     <p className="text-[14px] font-[400] leading-[24px] mb-[10px]">
-                      {items.longDescription}
+                      {items.shortDescription}
                     </p>
                     <div className="flex w-full mb-[10px]">
                       <div className="flex items-center w-[20%]">

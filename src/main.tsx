@@ -6,7 +6,7 @@ import ReactDays from './components/Fed/React Challeneg/ReactDays.tsx'
 import Layout from './components/Layout.tsx'
 import Dashboard from './components/Fed/Dashboard/Dashboard.tsx'
 import ChallengeDetails from './components/Fed/ChallengeDetails/ChallengeDetails.tsx'
-import { ChallengeProvider } from './components/Common/challengeContext.tsx'
+import { ChallengeProvider } from './components/Common/ChallengeContext.tsx'
 
 const router = createBrowserRouter([
   {
