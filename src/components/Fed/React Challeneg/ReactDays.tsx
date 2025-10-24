@@ -13,7 +13,7 @@ const ReactDays = () => {
   });
 
   return (
-    <div className="mt-[20px] h-screen">
+    <div className="mt-[20px] h-screen p-4">
       <div className="flex justify-between mx-[5px]">
         <div className="flex border border-gray-300 h-[40px] w-[340px] rounded-[15px] flex-row  items-center px-[15px]">
           <div className="flex mr-[10px]">

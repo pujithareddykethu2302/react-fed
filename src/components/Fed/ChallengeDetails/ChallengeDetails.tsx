@@ -59,7 +59,7 @@ const ChallengeDetails = () => {
   };
 
   return (
-    <div className="pt-[2rem]">
+    <div className="p-4">
       <div className="flex w-full justify-center items-center">
         <p className=" text-[2rem] font-[800]">
           {" "}
