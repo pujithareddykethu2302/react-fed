@@ -1,24 +1,18 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import CardSkeleton from "../../Common/Skeleton";
 import NoData from "../../../assets/Images/ChallengesPage/Empty-cuate.svg";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { useChallenges } from "../../Common/ChallengeContext";
+
 
 interface Data {
-  CardsData: any;
   searchData: string;
-  loading: boolean;
   headerUpdate: boolean;
-  setCardsData: any;
 }
-const DisplayCard = ({
-  CardsData,
-  searchData,
-  loading,
-  headerUpdate,
-  setCardsData,
-}: Data) => {
+const DisplayCard = ({ searchData, headerUpdate }: Data) => {
+  const { CardsData, setCardsData, loading } = useChallenges();
   const SearchFilterData = CardsData.filter((items: any) => {
     return (
       items.title.toLowerCase().includes(searchData.toLowerCase()) ||
@@ -39,31 +33,14 @@ const DisplayCard = ({
 
   const AfterPaginationDisplayData = DisplayData.slice(startIndex, endIndex);
 
-  const handleStart = async (challenge: any) => {
-    try {
-      await fetch(`http://localhost:3001/days/${challenge.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "In Progress" }),
-      });
-
-      setCardsData((prev: any) =>
-        prev.map((c: any) =>
-          c.id === challenge.id ? { ...c, status: "In Progress" } : c
-        )
-      );
-      navigate(
-        `/30-days-challenge/challenge-details/${challenge.dayChallenge
-          .replace(/\s+/g, "-")
-          .toLowerCase()}`,
-        {
-          state: { ...challenge, status: "In Progress" },
-        }
-      );
-    } catch (error) {
-      console.error("Error updating challenge:", error);
-    }
-  };
+const handleStart = (challenge: any) => {
+  navigate(
+    `/30-days-challenge/challenge-details/${challenge.dayChallenge
+      .replace(/\s+/g, "-")
+      .toLowerCase()}`,
+    { state: { ...challenge } }
+  );
+};
 
   return (
     <>
@@ -151,7 +128,7 @@ const DisplayCard = ({
                     </div>
 
                     <p className="text-[14px] font-[400] leading-[24px] mb-[10px]">
-                      {items.longDescription}
+                      {items.shortDescription}
                     </p>
                     <div className="flex w-full mb-[10px]">
                       <div className="flex items-center w-[20%]">
