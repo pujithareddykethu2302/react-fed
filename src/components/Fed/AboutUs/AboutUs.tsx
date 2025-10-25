@@ -33,13 +33,10 @@ const AboutUs = () => {
       <div className="mt-[2rem] flex justify-center items-center mx-[5rem] w-[80%]">
         <img src={whoWeAre} className="w-100 h-100" />
         <div className="px-6">
-          {/* Heading */}
           <p className="text-3xl font-bold text-black">
             Where <span className="text-[#563A9C]">Developers</span> Build
             Confidence
           </p>
-
-          {/* Content with vertical line */}
           <div className="flex items-start mt-6">
             <div className="w-1 h-25 bg-[#B0B0B0] rounded mr-4"></div>
             <p className="text-gray-500 leading-relaxed">
@@ -52,39 +49,118 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-      <div>
-        <div>
-          <p>Our Mission</p>
-          <p>
-            Our mission is simple: turn learning into building. We aim to
-            provide developers with structured, bite-sized daily challenges that
-            teach core React concepts and front-end development skills. Instead
-            of endless theory, we focus on practical exercises that you can
-            complete in 20–40 minutes a day, helping you grow steadily and
-            confidently.
-          </p>
+      <div className="bg-gray-100 px-6 sm:px-12 py-16 flex flex-col sm:flex-row gap-8 justify-center items-stretch">
+        <div className="bg-white shadow-md rounded-2xl w-full sm:w-[25%] transition-transform hover:-translate-y-2 duration-300">
+          <div className="px-6 py-3 bg-[#563A9C] text-white rounded-t-2xl">
+            <p className="text-lg font-semibold uppercase">Our Mission</p>
+          </div>
+          <div className="p-6 text-gray-700">
+            <p className="leading-relaxed">
+              Our mission is simple:{" "}
+              <span className="font-semibold text-[#563A9C]">
+                turn learning into building.
+              </span>
+              Every challenge helps developers move from theory to real-world
+              projects.
+            </p>
+          </div>
         </div>
-        <div>
-          <p>our vision</p>
-          <p>
-            We envision a world where developers learn by building, not just
-            reading. Challenge Hub encourages daily practice, small wins, and
-            consistent growth. By completing each challenge, learners gain
-            confidence, improve coding skills, and build a foundation for
-            real-world front-end projects.
-          </p>
+
+        <div className="bg-white shadow-md rounded-2xl w-full sm:w-[25%] transition-transform hover:-translate-y-2 duration-300">
+          <div className="px-6 py-3 bg-[#563A9C] text-white rounded-t-2xl">
+            <p className="text-lg font-semibold uppercase">Our Vision</p>
+          </div>
+          <div className="p-6 text-gray-700">
+            <p className="leading-relaxed">
+              We envision a world where developers{" "}
+              <span className="font-semibold text-[#563A9C]">
+                learn by building, not just reading,
+              </span>
+              gaining confidence through creativity and consistent practice.
+            </p>
+          </div>
+        </div>
+        <div className="bg-white shadow-md rounded-2xl w-full sm:w-[45%] lg:w-[22%] transition-transform hover:-translate-y-2 duration-300">
+          <div className="px-6 py-3 bg-[#563A9C] text-white rounded-t-2xl">
+            <p className="text-lg font-semibold uppercase">What We Offer</p>
+          </div>
+          <div className="p-6 text-gray-700">
+            <p className="leading-relaxed">
+              Hands-on challenges, curated learning paths, and real-world
+              projects designed to help you{" "}
+              <span className="font-semibold text-[#563A9C]">
+                grow from beginner to confident builder.
+              </span>
+            </p>
+          </div>
         </div>
       </div>
-      <div>
-        <p>What You’ll Find Here</p>
-        <p>Daily React Challenges</p>
-        <p>Set goals</p>
-        <p>Tracker</p>
-        <p>Add your resources</p>
-        <p>add your custom challenges</p>
+
+      <div className="bg-gray-50 py-16 px-6 sm:px-12 text-center">
+        <h2 className="text-3xl font-bold text-[#563A9C] mb-6">
+          What You’ll Find Here
+        </h2>
+        <p className="text-gray-600 max-w-2xl mx-auto mb-10">
+          Explore everything you need to grow as a front-end developer — all in
+          one place, designed to keep you consistent, creative, and confident.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto text-left">
+          <div className="bg-white shadow-sm rounded-xl p-5 hover:shadow-md transition">
+            <p className="text-lg font-semibold text-[#563A9C] mb-2">
+              💡 Daily React Challenges
+            </p>
+            <p className="text-gray-600 text-sm">
+              Level up daily with real-world coding tasks that help you build
+              mastery.
+            </p>
+          </div>
+
+          <div className="bg-white shadow-sm rounded-xl p-5 hover:shadow-md transition">
+            <p className="text-lg font-semibold text-[#563A9C] mb-2">
+              🎯 Set Goals
+            </p>
+            <p className="text-gray-600 text-sm">
+              Define your personal milestones and stay accountable as you learn.
+            </p>
+          </div>
+
+          <div className="bg-white shadow-sm rounded-xl p-5 hover:shadow-md transition">
+            <p className="text-lg font-semibold text-[#563A9C] mb-2">
+              📆 Progress Tracker
+            </p>
+            <p className="text-gray-600 text-sm">
+              Keep track of your growth, completed challenges, and consistency
+              streaks.
+            </p>
+          </div>
+
+          <div className="bg-white shadow-sm rounded-xl p-5 hover:shadow-md transition">
+            <p className="text-lg font-semibold text-[#563A9C] mb-2">
+              📚 Add Resources
+            </p>
+            <p className="text-gray-600 text-sm">
+              Save articles, videos, and tools that help you in your coding
+              journey.
+            </p>
+          </div>
+
+          <div className="bg-white shadow-sm rounded-xl p-5 hover:shadow-md transition">
+            <p className="text-lg font-semibold text-[#563A9C] mb-2">
+              ⚙️ Custom Challenges
+            </p>
+            <p className="text-gray-600 text-sm">
+              Create and practice your own challenges tailored to your learning
+              goals.
+            </p>
+          </div>
+        </div>
       </div>
-      <div>
-        <p>Small Steps. Big Progress.</p>
+
+      <div className="text-center py-16 bg-gradient-to-r from-[#563A9C] to-[#7E5CCB] text-white">
+        <p className="text-3xl font-semibold italic tracking-wide">
+          “Small Steps. Big Progress.”
+        </p>
       </div>
     </div>
   );
