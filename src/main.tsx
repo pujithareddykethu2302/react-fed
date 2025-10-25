@@ -9,6 +9,8 @@ import ChallengeDetails from './components/Fed/ChallengeDetails/ChallengeDetails
 import { ChallengeProvider } from './components/Common/ChallengeContext.tsx'
 import AboutUs from './components/Fed/AboutUs/AboutUs.tsx'
 import ContactUS from './components/Fed/ContactUS/ContactUS.tsx'
+import Planner from './components/Fed/Planner/Planner.tsx'
+import Resources from './components/Fed/Resources/Resources.tsx'
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,12 @@ const router = createBrowserRouter([
         element: <ContactUS />,
         path:'contact-us',
 
+      },{
+        element: <Planner /> ,
+        path:'/my-planner',
+      },{
+        element: <Resources />,
+        path:'/reources-page',
       }
     ]
   }

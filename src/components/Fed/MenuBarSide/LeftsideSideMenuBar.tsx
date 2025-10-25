@@ -36,9 +36,9 @@ const LeftsideSideMenuBar = ({CloseMenu, setcloseMenu}:LeftsideSideMenuBar) => {
       path: "/custom-challeneg",
     },
     {
-      title: "My Goals",
+      title: "My Planner",
       icon: <ChecklistIcon sx={{ color: "white" }} fontSize="small" />,
-      path: "/add-goals",
+      path: "/my-planner",
     },
     {
       title: "Challenge Hub",
@@ -60,7 +60,7 @@ const LeftsideSideMenuBar = ({CloseMenu, setcloseMenu}:LeftsideSideMenuBar) => {
       icon: (
         <LibraryBooksOutlinedIcon sx={{ color: "white" }} fontSize="small" />
       ),
-      path: "/Resources",
+      path: '/reources-page',
     },
   ];
   return (
