@@ -27,14 +27,14 @@ const Layout = () => {
         </div>
       )}
 
-      {CloseMenu && (
+    
         <button
-          className="absolute top-4 left-4 z-50 sm:left-4 sm:top-4 cursor-pointer border border-[#563A9C] rounded-[4px] h-[40px] w-[40px] flex justify-center items-center bg-[#563A9C]"
+          className="absolute top-4 right-4 z-50 sm:right-4 sm:top-4 cursor-pointer border border-[#563A9C] rounded-[4px] h-[40px] w-[40px] flex justify-center items-center bg-[#563A9C]"
           onClick={() => setcloseMenu(!CloseMenu)}
         >
           <MenuIcon sx={{ color: "white" }} />
         </button>
-      )}
+      
 
       <div className=" w-[85%] flex-1  overflow-auto">
         <Outlet />

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import emailjs from "emailjs-com";
-import EmailImage from "../../../assets/Images/ContactUs/Email.svg"
+import EmailImage from "../../../assets/Images/ContactUs/Email.svg";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -11,24 +11,24 @@ const ContactUs = () => {
 
   const [status, setStatus] = useState("");
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     setStatus("Sending...");
 
     emailjs
       .send(
-        "service_FED_2025", 
-        "template_4oqf9hr", 
+        "service_FED_2025",
+        "template_4oqf9hr",
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
         },
-       "_HGycPfhu40ieVU-0" 
+        "_HGycPfhu40ieVU-0"
       )
       .then(() => {
         setStatus("Message sent successfully!");
@@ -40,22 +40,20 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center py-16 px-6">
-         
+    <div className="bg-gray-100 min-h-screen flex flex-col md:flex-row justify-center items-center py-16 px-6 gap-10">
+
       <div className="bg-white shadow-lg rounded-2xl p-8 max-w-2xl w-full">
         <h1 className="text-3xl font-bold text-[#563A9C] mb-4 text-center">
           Get in Touch
         </h1>
         <p className="text-gray-600 text-center mb-8">
-          Have questions, feedback, or want to collaborate?  
-          Fill out the form below — we’d love to hear from you!
+          Have questions or feedback ? Fill out the form
+          below — we’d love to hear from you!
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
-              Name
-            </label>
+            <label className="block text-gray-700 font-medium mb-2">Name</label>
             <input
               type="text"
               name="name"
@@ -110,8 +108,13 @@ const ContactUs = () => {
         )}
       </div>
 
-        <img src={EmailImage} className="w-150 h-150"/>
-
+      <div className="w-full max-w-md flex justify-center">
+        <img
+          src={EmailImage}
+          className="w-full h-auto object-contain"
+          alt="Email Illustration"
+        />
+      </div>
     </div>
   );
 };
