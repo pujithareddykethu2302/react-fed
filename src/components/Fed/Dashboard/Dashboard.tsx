@@ -67,10 +67,16 @@ const Dashboard = () => {
             <img src={StartImage} className="w-70 h-70" />
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-md p-6 mb-2 mt-8 flex justify-between w-[100%] lg:w-[27%]">
-          <p>{TodayDate}</p>
-          <p>{month}</p>
-          <p>{Week}</p>
+        <div className="mt-8 rounded-2xl shadow-lg  flex flex-col w-full lg:w-[27%]">
+          <div className="bg-white w-full text-[#563A9C] flex flex-row justify-between">
+            <p>{month}</p>
+            <p>{Week}</p>
+          </div>
+          <div className="bg-[#563A9C] w-full">
+          <p className="text-[32px] font-extrabold">{TodayDate}</p>
+          </div>
+    
+       
         </div>
       </div>
       <div className=" justify-between flex flex-col sm:flex-row gap-1 mb-2 w-[100%]">
