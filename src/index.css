@@ -7,3 +7,10 @@
   --breakpoint-xs: 375px;
    
 }
+
+
+.css-fiycc9-MuiButtonBase-root-MuiPickersDay-root.Mui-selected{
+  background-color: "#563A9C" !important;
+  border:"#563A9C" !important;
+  color:white !important;
+}

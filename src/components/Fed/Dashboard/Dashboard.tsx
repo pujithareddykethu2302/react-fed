@@ -5,6 +5,8 @@ import { useNotes } from "../../Common/NotesContext";
 import { days, months } from "../../Common/Constants";
 import NotesImg from "../.../../../../assets/Images/Dashboard/Notes-pana.svg";
 import { useNavigate } from "react-router-dom";
+import StaticDatePickerLandscape from "../../Common/Calender";
+import DateCalendarServerRequest from "../../Common/Calender";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ const Dashboard = () => {
   console.log("date", TodayDate, month, Week);
   return (
     <div className="bg-gray-100 min-h-screen p-10">
-      <p>Dashboard</p>
+      <p className="text-[25px] font-semibold ">Dashboard</p>
       <div className=" justify-between flex flex-col sm:flex-row gap-1 mb-2">
         <div className="bg-white rounded-xl shadow-md p-6 mb-2 mt-8 flex flex-col sm:flex-row justify-between w-[100%] lg:w-[70%]">
           <div className="mt-[2rem]">
@@ -68,13 +70,11 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="mt-8 rounded-2xl shadow-lg  flex flex-col w-full lg:w-[27%]">
-          <div className="bg-white w-full text-[#563A9C] flex flex-row justify-between">
-            <p>{month}</p>
-            <p>{Week}</p>
-          </div>
-          <div className="bg-[#563A9C] w-full">
-          <p className="text-[32px] font-extrabold">{TodayDate}</p>
-          </div>
+           <div className="bg-[#563A9C] rounded-lg px-4 py-2 flex justify-center items-center">
+              <p className="text-lg font-semibold text-white">My Check-In Tracker</p>
+           </div>
+
+          <DateCalendarServerRequest />
     
        
         </div>
