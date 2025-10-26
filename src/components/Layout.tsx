@@ -4,8 +4,10 @@ import LeftsideSideMenuBar from "./Fed/MenuBarSide/LeftsideSideMenuBar";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 
+
 const Layout = () => {
   const [CloseMenu, setcloseMenu] = useState(false);
+
 
   return (
     <div className="flex w-full h-screen overflow-hidden">
