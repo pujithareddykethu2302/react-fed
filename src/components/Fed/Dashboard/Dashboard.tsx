@@ -1,68 +1,80 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import LeftsideSideMenuBar from '../MenuBarSide/LeftsideSideMenuBar'
+import { useEffect, useState } from "react";
+import StartImage from "../../../assets/Images/Dashboard/Start.svg";
+import { getGreetingByTime, type Greeting } from "../../service/dataSerice";
 
 const Dashboard = () => {
-  const [sideBarMenuToggle, setSideBarMenuToggle] = useState(true)
-  const [homePageContentData, setHomePageContentData] = useState<any>([])
-  const [RightSideMenuToggle, setRightSideMenuToggle] = useState(false)
+  const [GreetingMessages, setGreetingMessage] = useState<Greeting | null>(
+    null
+  );
+  const [caption, setCaption] = useState("");
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   useEffect(() => {
-    axios.get('http://localhost:3001/challengeInfo')
-      .then((respo) => {
-        setHomePageContentData(respo.data)
-        console.log(respo.data)
-        console.log(Array.isArray(respo.data))
-        console.log(typeof homePageContentData)
-      })
+    const fetchGreeting = async () => {
+      const data: Greeting = await getGreetingByTime();
+      setGreetingMessage(data);
+      const randomCaption =
+        data.captions[Math.floor(Math.random() * data.captions.length)];
+      setCaption(randomCaption);
+    };
 
-  }, [])
+    fetchGreeting();
+  }, []);
+  const d = new Date();
+  let TodayDate = d.getDate();
+  let month = months[d.getMonth()];
+  let Week = days[d.getDay()];
 
-
+  console.log("date", TodayDate, month, Week);
   return (
-    <div className="flex flex-row min-h-screen">
-
-    <h1>dashboard</h1>
-
-      {/* {!sideBarMenuToggle && (
-        <div className="w-[5%] bg-[#563A9C] flex  pt-[10px] mr-[20px] justify-center">
-          <button className="cursor-pointer border border-white rounded-[4px] h-[40px] w-[40px] flex justify-center items-center" onClick={() => { setSideBarMenuToggle(true) }}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 text-white">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
+    <div className="bg-gray-100 min-h-screen p-10">
+      <p>Dashboard</p>
+      <div className=" justify-between flex flex-col sm:flex-row gap-3 mb-4">
+        <div className="bg-white rounded-xl shadow-md p-6 mb-8 mt-8 flex flex-col sm:flex-row justify-between w-[100%] lg:w-[70%]">
+          <div className="mt-[2rem]">
+            <p className="text-2xl sm:text-4xl font-bold">
+              {GreetingMessages
+                ? `Hello!, ${GreetingMessages.greeting}`
+                : "Hello!"}
+            </p>
+            <p className="mt-[1rem] text-[20px] font-[500] text-[#563A9C]">
+              {GreetingMessages
+                ? caption
+                : "Your journey to mastery begins today — 30 days, endless possibilities."}
+            </p>
+            <button className="px-4 py-2 bg-[#563A9C] text-white rounded hover:bg-[#472F85] mt-[2rem]">
+              Let’s Go!
+            </button>
+          </div>
+          <div>
+            <img src={StartImage} className="w-70 h-70" />
+          </div>
         </div>
-
-      )}
-
-      <div className="flex flex-col px-[20px] py-[20px] flex-1 bg-gray-100">
-
-        {/* <div className="flex justify-between">
+        <div className="bg-white rounded-xl shadow-md p-6 mb-8 mt-8 flex justify-between w-[100%] lg:w-[27%]">
+          <p>
+            {TodayDate}
+          </p>
+          <p>
+            {month}
+          </p>
+          <p>{Week}</p>
+        </div>
+      </div>
+      <div>
          
-          {!RightSideMenuToggle && (
-            <div className="flex items-center"> <p className="text-[16px] font-[700] mr-[20px]">Welcome Back to FED !</p>
-              <button className="bg-[#563A9C] rounded-[4px] h-[40px] w-[40px] flex  justify-center items-center cursor-pointer"
-                onClick={() => { setRightSideMenuToggle(true) }}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 text-white">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                </svg>
-              </button>
-            </div>
-          )}
-
-        </div> */}
-
-
-      {/* {RightSideMenuToggle && (
-        <RightSideMenuBar setRightSideMenuToggle={setRightSideMenuToggle} />
-      )} */}
-
-
-
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { ChallengeDaysData } from "../service/dataSerice";
 
 const ChallengeContext = createContext<any>(null);
 
@@ -9,9 +10,8 @@ export const ChallengeProvider = ({ children }: any) => {
   const fetchChallenges = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3001/days");
-      const data = await res.json();
-      setCardsData(data);
+      const res:any = await ChallengeDaysData();
+      setCardsData(res);
     } catch (err) {
       console.error("Error fetching challenges:", err);
     } finally {
@@ -19,13 +19,15 @@ export const ChallengeProvider = ({ children }: any) => {
     }
   };
 
+  console.log("CardsData", CardsData)
+
   useEffect(() => {
     fetchChallenges();
   }, []);
 
   return (
     <ChallengeContext.Provider
-      value={{ CardsData, setCardsData, loading, fetchChallenges }}
+      value={{ CardsData, setCardsData, loading }}
     >
       {children}
     </ChallengeContext.Provider>

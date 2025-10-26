@@ -1,9 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useChallenges } from "../../Common/ChallengeContext";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";
+import {
+  getChallengeById,
+  updateChallengeStatus,
+} from "../../service/dataSerice";
 
 const ChallengeDetails = () => {
   const navigate = useNavigate();
@@ -11,6 +15,7 @@ const ChallengeDetails = () => {
   const { setCardsData } = useChallenges();
   const [status, setStatus] = useState(challenge.status);
   const [openInstruction, setInstruction] = useState(false);
+  const [challnege, setChallenge] = useState<any>();
 
   const DifficultyStatusColor = (status: string) => {
     if (status === "Easy") {
@@ -21,40 +26,93 @@ const ChallengeDetails = () => {
 
     return "#B00020";
   };
+
+  useEffect(() => {
+    const fetchChallenge = async () => {
+      const storedData = JSON.parse(
+        localStorage.getItem("challengesStatus") || "{}"
+      );
+      let data = await getChallengeById(challenge.id);
+
+      if (storedData[challenge.id]) {
+        data = { ...data, ...storedData[challenge.id] };
+      }
+
+      setChallenge(data);
+      setStatus(data?.status);
+    };
+
+    fetchChallenge();
+  }, [challenge.id]);
+
   const handleStartChallenge = async () => {
     if (status === "Not Started") {
-      await fetch(`http://localhost:3001/days/${challenge.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "In Progress" }),
-      });
-
-      setCardsData((prev: any) =>
-        prev.map((c: any) =>
-          c.id === challenge.id ? { ...c, status: "In Progress" } : c
-        )
+      const updatedChallenge = await updateChallengeStatus(
+        challenge.id,
+        "In Progress"
       );
 
-      setStatus("In Progress");
+      if (updatedChallenge) {
+        // update localStorage
+        const storedData = JSON.parse(
+          localStorage.getItem("challengesStatus") || "{}"
+        );
+        storedData[challenge.id] = {
+          ...storedData[challenge.id],
+          status: "In Progress",
+        };
+        localStorage.setItem("challengesStatus", JSON.stringify(storedData));
+
+        setCardsData((prev: any) =>
+          prev.map((c: any) =>
+            c.id === challenge.id ? { ...c, status: "In Progress" } : c
+          )
+        );
+
+        setChallenge(updatedChallenge);
+        setStatus("In Progress");
+      }
     }
 
     window.open("https://codesandbox.io/", "_blank");
   };
 
   const handleCompletebutton = async () => {
-    await fetch(`http://localhost:3001/days/${challenge.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: "Completed" }),
-    });
-
-    setCardsData((prev: any) =>
-      prev.map((c: any) =>
-        c.id === challenge.id ? { ...c, status: "Completed" } : c
-      )
+    const updatedChallenge = await updateChallengeStatus(
+      challenge.id,
+      "Completed"
     );
 
-    setStatus("Completed");
+    if (updatedChallenge) {
+      // update localStorage
+      const storedData = JSON.parse(
+        localStorage.getItem("challengesStatus") || "{}"
+      );
+      storedData[challenge.id] = {
+        ...storedData[challenge.id],
+        status: "Completed",
+      };
+      localStorage.setItem("challengesStatus", JSON.stringify(storedData));
+
+      setCardsData((prev: any) =>
+        prev.map((c: any) =>
+          c.id === challenge.id ? { ...c, status: "Completed" } : c
+        )
+      );
+
+      const updateLocalStorageStatus = (id: string, status: string) => {
+        const stored = JSON.parse(
+          localStorage.getItem("challengesStatus") || "{}"
+        );
+        stored[id] = { status };
+        localStorage.setItem("challengesStatus", JSON.stringify(stored));
+      };
+      
+      setChallenge(updatedChallenge);
+      setStatus("Completed");
+      updateLocalStorageStatus(challenge.id, "Completed");
+    }
+
     navigate("/30-days-challenge");
   };
 
@@ -148,8 +206,7 @@ const ChallengeDetails = () => {
           setInstruction(!openInstruction);
         }}
       >
-        {openInstruction? "Hide Instructions" : "Show Instructions"}
-      
+        {openInstruction ? "Hide Instructions" : "Show Instructions"}
       </button>
       <button
         className="px-4 py-2 bg-gray-400 text-white rounded mr-2 cursor-pointer"

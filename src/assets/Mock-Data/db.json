@@ -1,9 +1,4 @@
 {
-  "challengeInfo": {
-    "title": "30 Days React Hands-On Challenge",
-    "shortDescription": "A practical 30-day coding challenge to master React step-by-step.",
-    "fullDescription": "This 30-day React hands-on challenge is designed to help developers build core React skills by building one small project each day. From beginner-friendly tasks like form validation to advanced topics like drag-and-drop and API integration, each day targets a key concept. By the end of the challenge, you'll have 30 mini React projects and a stronger understanding of real-world application building."
-  },
   "days": [
     {
       "id": "1",
