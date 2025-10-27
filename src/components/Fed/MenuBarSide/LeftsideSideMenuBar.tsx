@@ -56,11 +56,11 @@ const LeftsideSideMenuBar = ({CloseMenu, setcloseMenu}:LeftsideSideMenuBar) => {
       path: "/about-us",
     },
     {
-      title: "Resources",
+      title: "Code Pad",
       icon: (
         <LibraryBooksOutlinedIcon sx={{ color: "white" }} fontSize="small" />
       ),
-      path: '/reources-page',
+      path: '/CodePad-page',
     },
   ];
   return (

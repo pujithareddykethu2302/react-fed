@@ -1,26 +1,10 @@
 import { useState } from "react";
+import { useNotes } from "../../Common/NotesContext";
 
-interface Note {
-  title: string;
-  content: string;
-  date: string;
-}
-
-interface LinkItem {
-  title: string;
-  url: string;
-}
 
 const ResourcesPage = () => {
-  const [notes, setNotes] = useState<Note[]>(() => {
-    const saved = localStorage.getItem("notes");
-    return saved ? JSON.parse(saved) : [];
-  });
 
-  const [links, setLinks] = useState<LinkItem[]>(() => {
-    const saved = localStorage.getItem("links");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { notes, setNotes, links, setLinks } = useNotes()
 
   const [noteTitle, setNoteTitle] = useState("");
   const [noteContent, setNoteContent] = useState("");
@@ -87,7 +71,7 @@ const ResourcesPage = () => {
 
         {/* Display Notes */}
         <ul className="mt-6 space-y-4">
-          {notes.map((note, i) => (
+          {notes.map((note:any, i:any) => (
             <li
               key={i}
               className="border border-gray-200 rounded-lg p-4 bg-gray-50"
