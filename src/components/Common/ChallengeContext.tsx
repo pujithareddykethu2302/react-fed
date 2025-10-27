@@ -1,4 +1,4 @@
-import { createContext, use, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { ChallengeDaysData, MoreChallenge } from "../service/dataSerice";
 
 const ChallengeContext = createContext<any>(null);
@@ -6,10 +6,8 @@ const ChallengeContext = createContext<any>(null);
 export const ChallengeProvider = ({ children }: any) => {
   const [CardsData, setCardsData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [CustomCardsChallengeData, setCustomCardsChallengeData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState<any>(null);
-
 
   const fetchChallenges = async () => {
     try {
@@ -23,29 +21,41 @@ export const ChallengeProvider = ({ children }: any) => {
     }
   };
 
+  const fetchMoreChallengeData = async () => {
+    try {
+      setLoading(true);
+      const res: any = await MoreChallenge();
+      setCustomCardsChallengeData(res);
+    } catch (err) {
+      console.error("Error fetching more challenges:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchChallenges();
+    fetchMoreChallengeData();
+    const stored = localStorage.getItem("selectedCategory");
+    if (stored) setSelectedCategory(JSON.parse(stored));
   }, []);
 
   useEffect(() => {
-    const fetchMoreChallengeData = async () => {
-      try {
-        setLoading(true);
-        const res: any = await MoreChallenge();
-        setCustomCardsChallengeData(res);
-      } catch (err) {
-        console.error("Error fetching challenges:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMoreChallengeData();
-  }, []);
+    if (selectedCategory)
+      localStorage.setItem("selectedCategory", JSON.stringify(selectedCategory));
+  }, [selectedCategory]);
 
   return (
-    <ChallengeContext.Provider value={{ CardsData, setCardsData, loading , CustomCardsChallengeData, setCustomCardsChallengeData, selectedCategory,
-    setSelectedCategory,}}>
+    <ChallengeContext.Provider
+      value={{
+        CardsData,
+        setCardsData,
+        loading,
+        CustomCardsChallengeData,
+        selectedCategory,
+        setSelectedCategory,
+      }}
+    >
       {children}
     </ChallengeContext.Provider>
   );

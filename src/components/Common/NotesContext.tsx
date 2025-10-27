@@ -27,13 +27,12 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
     return saved ? JSON.parse(saved) : [];
   });
 
-  console.log("notes", notes);
 
   const [links, setLinks] = useState<LinkItem[]>(() => {
     const saved = localStorage.getItem("links");
     return saved ? JSON.parse(saved) : [];
   });
-  console.log("links", links);
+ 
   return (
     <NotesContext.Provider value={{ notes, setNotes, links, setLinks }}>
       {children}

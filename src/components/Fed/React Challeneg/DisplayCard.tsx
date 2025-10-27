@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import CardSkeleton from "../../Common/Skeleton";
 import NoData from "../../../assets/Images/ChallengesPage/Empty-cuate.svg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useChallenges } from "../../Common/ChallengeContext";
 
 interface Data {
@@ -9,7 +9,7 @@ interface Data {
 }
 
 const DisplayCard = ({ searchData }: Data) => {
-  const { CardsData, loading, setCardsData } = useChallenges();
+  const { CardsData, loading } = useChallenges();
   const navigate = useNavigate();
   const [CurrentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
