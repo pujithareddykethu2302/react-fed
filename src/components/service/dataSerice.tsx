@@ -2,6 +2,7 @@
 
 import greetingData from "../../assets/Mock-Data/Captions.json"
 import challengesDataJson from "../../assets/Mock-Data/db.json"
+import CustomChallengeData from "../../assets/Mock-Data/moreChallenges.json"
 
 type Challenge = {
   id: string;
@@ -40,6 +41,15 @@ export const getGreetingMessages = (): Promise<Greeting[]> => {
   });
 };
 
+export const MoreChallenge = (): Promise<any[]>  =>{
+  return new Promise((resolve)=>{
+    setTimeout(()=>{
+      resolve(CustomChallengeData.categories)
+    }, 500)
+  })
+}
+
+
 
 export const getGreetingByTime = (): Promise<Greeting> => {
   return new Promise((resolve) => {
@@ -64,6 +74,8 @@ export const ChallengeDaysData = () =>{
         }, 500)
     })
 }
+
+
 
 export const getChallengeById = (id: string) => {
   return new Promise<Challenge | undefined>((resolve) => {

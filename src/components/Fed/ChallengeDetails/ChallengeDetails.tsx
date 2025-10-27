@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useChallenges } from "../../Common/ChallengeContext";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
@@ -12,6 +12,8 @@ import {
 const ChallengeDetails = () => {
   const navigate = useNavigate();
   const { state: challenge } = useLocation();
+  const { categoryName } = useParams();
+
   const { setCardsData } = useChallenges();
   const [status, setStatus] = useState(challenge.status);
   const [openInstruction, setInstruction] = useState(false);
@@ -107,7 +109,7 @@ const ChallengeDetails = () => {
         stored[id] = { status };
         localStorage.setItem("challengesStatus", JSON.stringify(stored));
       };
-      
+
       setChallenge(updatedChallenge);
       setStatus("Completed");
       updateLocalStorageStatus(challenge.id, "Completed");
@@ -125,9 +127,19 @@ const ChallengeDetails = () => {
         </p>
       </div>
       <div className="flex items-center mt-1">
-        <a href="/30-days-challenge" className="mr-[0.1rem] flex font-[600]">
+        <button
+          className="mr-[0.1rem] flex font-[600] cursor-pointer"
+          onClick={() => {
+            if (categoryName) {
+              navigate(`/More-hands-on-Challenges/${categoryName}`);
+            } else {
+              navigate("/30-days-challenge");
+            }
+          }}
+        >
           Challenge Hub
-        </a>
+        </button>
+
         <NavigateNextIcon fontSize="small" />
         <p className="mr-[1rem]">
           {challenge.dayChallenge} - {challenge.title}
@@ -210,7 +222,13 @@ const ChallengeDetails = () => {
       </button>
       <button
         className="px-4 py-2 bg-gray-400 text-white rounded mr-2 cursor-pointer"
-        onClick={() => navigate("/30-days-challenge")}
+        onClick={() => {
+          if (categoryName) {
+            navigate(`/More-hands-on-Challenges/${categoryName}`);
+          } else {
+            navigate("/30-days-challenge");
+          }
+        }}
       >
         Back
       </button>

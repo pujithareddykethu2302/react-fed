@@ -70,7 +70,7 @@ const DisplayCard = ({ searchData }: Data) => {
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-4">
             {AfterPaginationDisplayData.map((item: any) => (
               <div key={item.id}>
-                <div className="bg-white p-4 shadow rounded-lg min-h-[300px] flex flex-col justify-between">
+                <div className="bg-[#fcfaff]  p-4 shadow rounded-lg min-h-[300px] flex flex-col justify-between">
 
                   <div className="flex justify-between mb-2">
                     <p className="text-xs font-medium">{item.dayChallenge}</p>
