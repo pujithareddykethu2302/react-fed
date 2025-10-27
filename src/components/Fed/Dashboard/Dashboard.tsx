@@ -8,11 +8,12 @@ import { useNavigate } from "react-router-dom";
 import DateCalendarServerRequest from "../../Common/Calender";
 import EastIcon from "@mui/icons-material/East";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import StatusGraph from "./StatusGraph";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { notes } = useNotes();
-  console.log("notes", notes);
+
   const [GreetingMessages, setGreetingMessage] = useState<Greeting | null>(
     null
   );
@@ -27,8 +28,6 @@ const Dashboard = () => {
 
   const randomItems = [notes[RandomNotesTitles1], notes[RandomNotesTitles2]];
 
-  console.log(randomItems);
-
   useEffect(() => {
     const fetchGreeting = async () => {
       const data: Greeting = await getGreetingByTime();
@@ -40,12 +39,12 @@ const Dashboard = () => {
 
     fetchGreeting();
   }, []);
+
   const d = new Date();
   let TodayDate = d.getDate();
   let month = months[d.getMonth()];
   let Week = days[d.getDay()];
 
-  console.log("date", TodayDate, month, Week);
   return (
     <>
       <div className="bg-gray-100 min-h-screen p-10">
@@ -98,11 +97,13 @@ const Dashboard = () => {
         </div>
         <div className=" justify-between flex flex-col sm:flex-row gap-1 mb-2 w-[100%]">
           <div className=" flex w-[100%] lg:w-[70%]  flex-col sm:flex-row">
-            <div className="bg-white rounded-xl shadow-md p-6 my-4  w-[100%] lg:w-[50%] mr-[2rem] transition-transform hover:scale-[1.01]">
-              <p>status graph </p>
-              <button className="px-4 py-2 bg-[#563A9C] text-white rounded hover:bg-[#472F85] mt-[2rem]">
-                Let’s Go! <EastIcon className="ml-[1rem]" />
-              </button>
+            <div className="bg-white rounded-xl shadow-md my-4  w-[100%] lg:w-[50%] mr-[2rem] transition-transform hover:scale-[1.01]">
+              <div className="bg-[#563A9C] rounded-t-lg px-4 py-4 flex justify-center items-center">
+                <p className="text-lg font-semibold text-white">
+                  React 30-days Tracker
+                </p>
+              </div>
+              <StatusGraph />
             </div>
             <div className="bg-white rounded-2xl shadow-md  my-4 w-full lg:w-1/2 transition-transform hover:scale-[1.01]">
               <div className="bg-[#563A9C] rounded-t-lg px-4 py-4 flex justify-between items-center">
