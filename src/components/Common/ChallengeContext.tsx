@@ -19,7 +19,6 @@ export const ChallengeProvider = ({ children }: any) => {
     }
   };
 
-  console.log("CardsData", CardsData)
 
   useEffect(() => {
     fetchChallenges();
