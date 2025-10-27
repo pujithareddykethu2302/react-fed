@@ -131,7 +131,7 @@ const AboutUs = () => {
         </div>
       </div>
 
-      {/* Quote */}
+ 
       <div className="text-center py-16 bg-gradient-to-r from-[#563A9C] to-[#7E5CCB] text-white">
         <p className="text-2xl sm:text-3xl font-semibold italic tracking-wide">
           “Small Steps. Big Progress.”
