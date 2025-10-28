@@ -1,5 +1,4 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
@@ -29,11 +28,11 @@ const LeftsideSideMenuBar = ({CloseMenu, setcloseMenu}:LeftsideSideMenuBar) => {
       path: "/",
     },
     {
-      title: "Custom Challenge",
+      title: "More Challenge",
       icon: (
         <WbIncandescentOutlinedIcon sx={{ color: "white" }} fontSize="small" />
       ),
-      path: "/custom-challeneg",
+      path: "/More-hands-on-Challenges",
     },
     {
       title: "My Planner",

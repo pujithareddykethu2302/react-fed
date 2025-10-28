@@ -12,6 +12,9 @@ import ContactUS from "./components/Fed/ContactUS/ContactUS.tsx";
 import Planner from "./components/Fed/Planner/Planner.tsx";
 import Resources from "./components/Fed/Resources/Resources.tsx";
 import { NotesProvider } from "./components/Common/NotesContext.tsx";
+import MoreChallenges from "./components/Fed/MoreChallenges/MoreChallenges.tsx";
+import CategoryChallenges from "./components/Fed/MoreChallenges/CategoryChallenges.tsx";
+
 
 const router = createBrowserRouter([
   {
@@ -43,12 +46,20 @@ const router = createBrowserRouter([
         path: "/my-planner",
       },
       {
-        element: (
-          <Resources
-            
-          />
-        ),
+        element: <Resources />,
         path: "/CodePad-page",
+      },
+      {
+        element: <MoreChallenges />,
+        path: "/More-hands-on-Challenges",
+      },
+      {
+        element: <CategoryChallenges />,
+        path: "/More-hands-on-Challenges/:categoryName",
+      },
+      {
+        element: <ChallengeDetails />,
+        path: "/More-hands-on-Challenges/:categoryName/challenge-details/:id",
       },
     ],
   },
