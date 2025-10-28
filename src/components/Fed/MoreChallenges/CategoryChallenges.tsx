@@ -5,12 +5,16 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { updateChallengeStatus } from "../../service/dataSerice";
 import NoData from "../../../assets/Images/ChallengesPage/Empty-cuate.svg";
+import CardSkeleton from "../../Common/Skeleton";
 
 const CategoryChallenges = () => {
   const { state } = useLocation();
   const { categoryName } = useParams();
   const navigate = useNavigate();
-  const { selectedCategory, setSelectedCategory } = useChallenges();
+  const { selectedCategory, setSelectedCategory, loading } =
+    useChallenges();
+
+ 
 
   const [challenges, setChallenges] = useState<any[]>([]);
   const [CurrentPage, setCurrentPage] = useState(1);
@@ -23,7 +27,10 @@ const CategoryChallenges = () => {
   };
 
   const loadChallenges = () => {
-    const localStored = JSON.parse(localStorage.getItem("selectedCategory") || "{}");
+
+    const localStored = JSON.parse(
+      localStorage.getItem("selectedCategory") || "{}"
+    );
 
     const data =
       state?.challenges ||
@@ -31,7 +38,9 @@ const CategoryChallenges = () => {
       localStored?.challenges ||
       [];
 
-    const storedStatus = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
+    const storedStatus = JSON.parse(
+      localStorage.getItem("challengesStatus") || "{}"
+    );
     const merged = data.map((c: any) =>
       storedStatus[c.id] ? { ...c, ...storedStatus[c.id] } : c
     );
@@ -40,6 +49,7 @@ const CategoryChallenges = () => {
 
     if (!selectedCategory && localStored?.name)
       setSelectedCategory(localStored);
+
   };
 
   useEffect(() => {
@@ -51,13 +61,17 @@ const CategoryChallenges = () => {
     return () => window.removeEventListener("storage", loadChallenges);
   }, []);
 
- const TotalPages = Math.ceil(challenges.length / pageSize);
+  const TotalPages = Math.ceil(challenges.length / pageSize);
   const PageNumbers = Array.from({ length: TotalPages }, (_, i) => i + 1);
   const startIndex = (CurrentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
+  const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
 
   const handleStatusUpdate = async (challenge: any, newStatus: string) => {
+    navigate(
+      `/More-hands-on-Challenges/${categoryName}/challenge-details/${challenge.title}`,
+      { state: challenge }
+    );
     await updateChallengeStatus(challenge.id, newStatus);
 
     const stored = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
@@ -68,8 +82,6 @@ const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
     setChallenges((prev) =>
       prev.map((c) => (c.id === challenge.id ? { ...c, status: newStatus } : c))
     );
-
-    if (newStatus === "In Progress") window.open("https://codesandbox.io/", "_blank");
   };
 
   return (
@@ -86,7 +98,13 @@ const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
         {categoryName}
       </h2>
 
-      {challenges.length === 0 ? (
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <CardSkeleton key={i} index={i} />
+          ))}
+        </div>
+      ) : challenges.length === 0 ? (
         <div className="flex flex-col justify-center items-center h-[70vh]">
           <img src={NoData} className="w-[25rem] h-[25rem]" alt="No data" />
           <p className="mt-4 text-[#563A9C] text-lg font-semibold">
@@ -105,7 +123,9 @@ const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
                   <p className="text-[25px] font-bold text-[#050405]">
                     {challenge.title}
                   </p>
-                  {challenge.icon && <img src={challenge.icon} className="w-5 h-5" />}
+                  {challenge.icon && (
+                    <img src={challenge.icon} className="w-5 h-5" />
+                  )}
                 </div>
 
                 <p className="text-[20px] font-bold text-[#563A9C] my-2">
@@ -114,7 +134,6 @@ const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
                 <p className="text-[16px] text-[#050405]">
                   {challenge.shortDescription}
                 </p>
-
 
                 <div
                   className={`w-[6rem] h-6 flex items-center justify-center rounded-md my-4 border`}
@@ -153,8 +172,12 @@ const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
                     <div
                       className="rounded-full w-3 h-3 border"
                       style={{
-                        backgroundColor: DifficultyStatusColor(challenge.difficulty),
-                        borderColor: DifficultyStatusColor(challenge.difficulty),
+                        backgroundColor: DifficultyStatusColor(
+                          challenge.difficulty
+                        ),
+                        borderColor: DifficultyStatusColor(
+                          challenge.difficulty
+                        ),
                       }}
                     />
                     <p
@@ -172,7 +195,6 @@ const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
                   </div>
                 </div>
 
-           
                 <button
                   onClick={() => {
                     if (challenge.status === "Not Started") {
@@ -184,9 +206,11 @@ const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
                       );
                     }
                   }}
-                  className={`py-2 rounded-lg text-white transition-all ${
+                  className={`py-2 rounded-lg text-white transition-all  ${
                     challenge.status === "Completed"
-                      ? "bg-green-600"
+                      ? "bg-[#6BBA62] hover:bg-[#5aa552]"
+                      : challenge.status === "In Progress"
+                      ? "bg-[#f0b429] hover:bg-[#d99a00]"
                       : "bg-[#563A9C] hover:bg-[#472e85]"
                   }`}
                 >
@@ -202,40 +226,40 @@ const AfterPaginationDisplayData = challenges.slice(startIndex, endIndex);
         </>
       )}
 
-         <div className="flex justify-center items-center mt-4">
-            <button
-              className="bg-gray-300 w-[2.5rem] h-[2.5rem] mr-[5px] border disabled:opacity-30 disabled:cursor-default"
-              type="button"
-              disabled={CurrentPage === 1}
-              onClick={() => setCurrentPage((p) => p - 1)}
-            >
-              ˂
-            </button>
+      <div className="flex justify-center items-center mt-4">
+        <button
+          className="bg-gray-300 w-[2.5rem] h-[2.5rem] mr-[5px] border disabled:opacity-30 disabled:cursor-default"
+          type="button"
+          disabled={CurrentPage === 1}
+          onClick={() => setCurrentPage((p) => p - 1)}
+        >
+          ˂
+        </button>
 
-            {PageNumbers.map((i) => (
-              <button
-                key={i}
-                className={`w-[2.5rem] h-[2.5rem] border mr-[5px] cursor-pointer ${
-                  CurrentPage === i
-                    ? "bg-[#563A9C] text-white border"
-                    : "border border-gray-300"
-                }`}
-                type="button"
-                onClick={() => setCurrentPage(i)}
-              >
-                {i}
-              </button>
-            ))}
+        {PageNumbers.map((i) => (
+          <button
+            key={i}
+            className={`w-[2.5rem] h-[2.5rem] border mr-[5px] cursor-pointer ${
+              CurrentPage === i
+                ? "bg-[#563A9C] text-white border"
+                : "border border-gray-300"
+            }`}
+            type="button"
+            onClick={() => setCurrentPage(i)}
+          >
+            {i}
+          </button>
+        ))}
 
-            <button
-              className="bg-gray-300 w-[2.5rem] h-[2.5rem] border disabled:opacity-10 disabled:cursor-default"
-              onClick={() => setCurrentPage((p) => p + 1)}
-              disabled={CurrentPage === TotalPages}
-              type="button"
-            >
-              ˃
-            </button>
-          </div>
+        <button
+          className="bg-gray-300 w-[2.5rem] h-[2.5rem] border disabled:opacity-10 disabled:cursor-default"
+          onClick={() => setCurrentPage((p) => p + 1)}
+          disabled={CurrentPage === TotalPages}
+          type="button"
+        >
+          ˃
+        </button>
+      </div>
     </div>
   );
 };

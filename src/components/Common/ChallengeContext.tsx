@@ -48,6 +48,7 @@ export const ChallengeProvider = ({ children }: any) => {
   return (
     <ChallengeContext.Provider
       value={{
+        setLoading,
         CardsData,
         setCardsData,
         loading,

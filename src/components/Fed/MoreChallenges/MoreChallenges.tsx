@@ -1,9 +1,10 @@
 import { useChallenges } from "../../Common/ChallengeContext";
 import { useNavigate } from "react-router-dom";
+import CardSkeleton from "../../Common/Skeleton";
 
 const MoreChallenges = () => {
   const navigate = useNavigate();
-  const { CustomCardsChallengeData, setSelectedCategory } = useChallenges();
+  const { CustomCardsChallengeData, setSelectedCategory, loading } = useChallenges();
 
   const handleButtonChallenge = (categoryName: any, challenges: any[]) => {
     const selected = { name: categoryName, challenges };
@@ -17,6 +18,14 @@ const MoreChallenges = () => {
       <p className="text-[32px] font-[700] text-[#080809] mb-6">
         From Ideas to Execution — Pick Your Next Challenge
       </p>
+
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <CardSkeleton key={i} index={i} />
+          ))}
+        </div>
+      ) :
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {CustomCardsChallengeData.map((data: any) => (
           <div
@@ -39,6 +48,7 @@ const MoreChallenges = () => {
           </div>
         ))}
       </div>
+}
     </div>
   );
 };
