@@ -134,22 +134,22 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-row justify-between lg:w-[27%] w-full lg:flex-col ">
+          <div className="flex flex-col justify-between lg:w-[27%] w-full  ">
             <div className="bg-[#563A9C] rounded-xl shadow-md p-6 mb-4 mt-4 w-[100%] transition-transform hover:scale-[1.01]">
               <p className="text-white text-[16px] font-[700]">
                 Plan your day, track your progress, and schedule your 30-day
                 challenge tasks.
               </p>
-              <button className="px-4 py-2 text-[#563A9C] bg-white rounded hover:bg-[#d9d5e4] mt-[2rem] font-[700]">
+              <button className="px-4 py-2 text-[#563A9C] bg-white rounded hover:bg-[#d9d5e4] mt-[2rem] font-[700]" onClick={() => navigate("/my-planner")}>
                 Open Planner <EastIcon className="ml-[1rem]" />
               </button>
             </div>
             <div className="bg-[#563A9C] rounded-xl shadow-md p-6 mb-4 mt-4  w-[100%] transition-transform hover:scale-[1.01]">
               <p className="text-white text-[16px] font-[700]">
-                Jump into your coding challenges, track progress, and level up
+                Jump into more coding challenges, track progress, and level up
                 your skills.
               </p>
-              <button className="px-4 py-2 text-[#563A9C] bg-white rounded hover:bg-[#d9d5e4] mt-[2rem] font-[700]">
+              <button className="px-4 py-2 text-[#563A9C] bg-white rounded hover:bg-[#d9d5e4] mt-[2rem] font-[700]" onClick={() => navigate("/More-hands-on-Challenges")}>
                 Let’s Go! <EastIcon className="ml-[1rem]" />
               </button>
             </div>

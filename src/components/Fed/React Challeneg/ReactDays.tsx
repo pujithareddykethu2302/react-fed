@@ -6,7 +6,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 const ReactDays = () => {
   const [searchData, setSearchData] = useState("");
-  const [headerUpdate, setHeaderUpdate] = useState(false);
+
 
   return (
     <div className="mt-5 min-h-screen p-4 flex flex-col gap-4">
@@ -36,7 +36,7 @@ const ReactDays = () => {
       </div>
 
       {/* Cards */}
-      <DisplayCard searchData={searchData} headerUpdate={headerUpdate} />
+      <DisplayCard searchData={searchData}  />
     </div>
   );
 };

@@ -40,7 +40,7 @@ const LeftsideSideMenuBar = ({CloseMenu, setcloseMenu}:LeftsideSideMenuBar) => {
       path: "/my-planner",
     },
     {
-      title: "Challenge Hub",
+      title: "30 Days Challenge",
       icon: <MilitaryTechIcon sx={{ color: "white" }} fontSize="small" />,
       path: "/30-days-challenge",
     },

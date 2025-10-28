@@ -16,11 +16,12 @@ const DisplayCard = ({ searchData }: Data) => {
 
   const getMergedCardsData = () => {
     const stored = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
-    return CardsData.map((c: any) => (stored[c.id] ? { ...c, ...stored[c.id] } : c));
+    return CardsData.map((c: any) =>
+      stored[c.id] ? { ...c, ...stored[c.id] } : c
+    );
   };
 
   const mergedCardsData = getMergedCardsData();
-
 
   const SearchFilterData = mergedCardsData.filter((item: any) => {
     return (
@@ -33,13 +34,11 @@ const DisplayCard = ({ searchData }: Data) => {
 
   const DisplayData = searchData.trim() ? SearchFilterData : mergedCardsData;
 
-
   const TotalPages = Math.ceil(DisplayData.length / pageSize);
   const PageNumbers = Array.from({ length: TotalPages }, (_, i) => i + 1);
   const startIndex = (CurrentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const AfterPaginationDisplayData = DisplayData.slice(startIndex, endIndex);
-
 
   const handleStart = (challenge: any) => {
     navigate(
@@ -49,7 +48,6 @@ const DisplayCard = ({ searchData }: Data) => {
       { state: { ...challenge } }
     );
   };
-
 
   const DifficultyStatusColor = (status: string) => {
     if (status === "Easy") return "#1E7F55";
@@ -71,19 +69,16 @@ const DisplayCard = ({ searchData }: Data) => {
             {AfterPaginationDisplayData.map((item: any) => (
               <div key={item.id}>
                 <div className="bg-[#fcfaff]  p-4 shadow rounded-lg min-h-[300px] flex flex-col justify-between">
-
                   <div className="flex justify-between mb-2">
                     <p className="text-xs font-medium">{item.dayChallenge}</p>
                     <img src={item.icon} className="w-5 h-5" />
                   </div>
 
-             
                   <div className="mb-2">
                     <p className="text-lg font-bold">{item.title}</p>
                     <p className="text-sm text-gray-500">{item.topic}</p>
                   </div>
 
-      
                   <div
                     className={`w-[6rem] h-6 flex items-center justify-center rounded-md mb-2 border`}
                     style={{
@@ -118,19 +113,22 @@ const DisplayCard = ({ searchData }: Data) => {
 
                   <p className="text-sm mb-2">{item.shortDescription}</p>
 
-       
                   <div className="flex items-center gap-4 mb-2 flex-wrap">
                     <div className="flex items-center gap-2">
                       <div
                         className="rounded-full w-3 h-3 border"
                         style={{
-                          backgroundColor: DifficultyStatusColor(item.difficulty),
+                          backgroundColor: DifficultyStatusColor(
+                            item.difficulty
+                          ),
                           borderColor: DifficultyStatusColor(item.difficulty),
                         }}
                       />
                       <p
                         className="text-sm"
-                        style={{ color: DifficultyStatusColor(item.difficulty) }}
+                        style={{
+                          color: DifficultyStatusColor(item.difficulty),
+                        }}
                       >
                         {item.difficulty}
                       </p>
@@ -155,23 +153,27 @@ const DisplayCard = ({ searchData }: Data) => {
                     </div>
                   </div>
 
-                  <div className="flex justify-end mt-2">
-                    <button
-                      className="px-4 py-2 bg-[#563A9C] text-white rounded hover:bg-[#472F85]"
-                      onClick={() => handleStart(item)}
-                    >
-                      {item.status === "In Progress"
-                        ? "Continue"
-                        : item.status === "Completed"
-                        ? "Completed"
-                        : "Start Now"}
-                    </button>
-                  </div>
+                  <button
+                    className={`px-4 py-2 text-white rounded transition-all
+    ${
+      item.status === "Completed"
+        ? "bg-[#6BBA62] hover:bg-[#5aa552]"
+        : item.status === "In Progress"
+        ? "bg-[#f0b429] hover:bg-[#d99a00]"
+        : "bg-[#563A9C] hover:bg-[#472e85]"
+    }`}
+                    onClick={() => handleStart(item)}
+                  >
+                    {item.status === "In Progress"
+                      ? "Continue"
+                      : item.status === "Completed"
+                      ? "View code"
+                      : "Start Now"}
+                  </button>
                 </div>
               </div>
             ))}
           </div>
-
 
           <div className="flex justify-center items-center mt-4">
             <button
