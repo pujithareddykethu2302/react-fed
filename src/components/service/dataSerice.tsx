@@ -1,6 +1,4 @@
-import greetingData from "../../assets/Mock-Data/Captions.json";
-import challengesDataJson from "../../assets/Mock-Data/db.json";
-import CustomChallengeData from "../../assets/Mock-Data/moreChallenges.json";
+
 
 type Challenge = {
   id: string;
@@ -18,19 +16,6 @@ type Challenge = {
   previewImg?: string;
 };
 
-type ChallengesData = {
-  days: Challenge[];
-};
-
-const challengesData: ChallengesData = {
-
-  days: (challengesDataJson as any).days.map((c: any) => ({
-    ...c,
-    id: c.id.toString(),
-  })),
-};
-
-
 export interface Greeting {
   startHour: number;
   endHour: number;
@@ -38,111 +23,78 @@ export interface Greeting {
   captions: string[];
 }
 
-export const getGreetingMessages = (): Promise<Greeting[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(greetingData);
-    }, 500);
-  });
+
+export const getGreetingMessages = async (): Promise<Greeting[]> => {
+  const res = await fetch(`${import.meta.env.BASE_URL}data/Captions.json`);
+  return await res.json();
+};
+
+export const getGoalsData = async () => {
+  const res = await fetch(`${import.meta.env.BASE_URL}data/goals.json`);
+  const data = await res.json();
+  return data; 
 };
 
 
-export const MoreChallenge = (): Promise<any[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(CustomChallengeData.categories);
-    }, 500);
-  });
+export const ChallengeDaysData = async (): Promise<Challenge[]> => {
+  const res = await fetch(`${import.meta.env.BASE_URL}data/db.json`);
+  const data = await res.json();
+  return data.days.map((c: any) => ({ ...c, id: c.id.toString() }));
+};
+
+export const MoreChallenge = async (): Promise<any[]> => {
+  const res = await fetch(`${import.meta.env.BASE_URL}data/moreChallenges.json`);
+  const data = await res.json();
+  return data.categories;
 };
 
 
-export const getGreetingByTime = (): Promise<Greeting> => {
-  return new Promise((resolve) => {
-    const currentHour = new Date().getHours();
+export const getChallengeById = async (id: string) => {
+  const days = await ChallengeDaysData();
+  const more = await MoreChallenge();
 
-    const greeting =
-      greetingData.find((g: Greeting) => {
-        if (g.startHour <= g.endHour) {
-          return currentHour >= g.startHour && currentHour <= g.endHour;
-        } else {
-          return currentHour >= g.startHour || currentHour <= g.endHour;
-        }
-      }) || greetingData[0];
-
-    setTimeout(() => resolve(greeting), 500);
-  });
-};
-
-
-export const ChallengeDaysData = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(challengesData.days);
-    }, 500);
-  });
-};
-
-
-const findChallengeById = (
-  id: string
-): { challenge: Challenge | undefined; source: "db" | "custom" } => {
-
-  let challenge = challengesData.days.find((c) => c.id === id);
-  if (challenge) return { challenge, source: "db" };
-  for (const category of CustomChallengeData.categories) {
-    const found = category.challenges.find(
-      (c: any) => c.id.toString() === id
-    );
-    if (found)
-      return {
-        challenge: { ...found, id: found.id.toString() },
-        source: "custom",
-      };
-  }
-
-  return { challenge: undefined, source: "db" };
-};
-
-export const getChallengeById = (id: string) => {
-  return new Promise<Challenge | undefined>((resolve) => {
-    const storedData = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
-    const { challenge } = findChallengeById(id);
-
-    if (challenge && storedData[id]) {
-      Object.assign(challenge, storedData[id]);
-    }
-
-    setTimeout(() => resolve(challenge), 300);
-  });
-};
-
-export const updateChallengeStatus = (id: string, status: string) => {
-  return new Promise<Challenge | undefined>((resolve) => {
-    const { challenge, source } = findChallengeById(id);
-    if (!challenge) {
-      resolve(undefined);
-      return;
-    }
-
-    challenge.status = status;
-
-    if (source === "db") {
-      const index = challengesData.days.findIndex((c) => c.id === id);
-      if (index !== -1) challengesData.days[index].status = status;
-    } else if (source === "custom") {
-      for (const category of CustomChallengeData.categories) {
-        const idx = category.challenges.findIndex(
-          (c: any) => c.id.toString() === id
-        );
-        if (idx !== -1)
-          category.challenges[idx].status = status;
+  let challenge = days.find((c) => c.id === id);
+  if (!challenge) {
+    for (const category of more) {
+      const found = category.challenges.find((c: any) => c.id.toString() === id);
+      if (found) {
+        challenge = { ...found, id: found.id.toString() };
+        break;
       }
     }
+  }
 
-    const storedData = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
-    storedData[id] = { ...storedData[id], status };
-    localStorage.setItem("challengesStatus", JSON.stringify(storedData));
+  const storedData = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
+  if (challenge && storedData[id]) {
+    Object.assign(challenge, storedData[id]);
+  }
 
-    setTimeout(() => resolve(challenge), 300);
-  });
+  return challenge;
+};
+
+export const updateChallengeStatus = async (id: string, status: string) => {
+  const storedData = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
+  storedData[id] = { ...storedData[id], status };
+  localStorage.setItem("challengesStatus", JSON.stringify(storedData));
+};
+
+export const getGreetingByTime = async (): Promise<Greeting> => {
+  const res = await fetch(`${import.meta.env.BASE_URL}data/Captions.json`);
+  const greetingData: Greeting[] = await res.json();
+
+  const currentHour = new Date().getHours();
+
+  // Find which greeting fits the current hour
+  const greeting =
+    greetingData.find((g) => {
+      if (g.startHour <= g.endHour) {
+        // normal range (e.g., 6–11)
+        return currentHour >= g.startHour && currentHour <= g.endHour;
+      } else {
+        // overnight range (e.g., 22–4)
+        return currentHour >= g.startHour || currentHour <= g.endHour;
+      }
+    }) || greetingData[0]; // fallback to first if nothing matches
+
+  return greeting;
 };

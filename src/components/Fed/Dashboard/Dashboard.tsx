@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import StartImage from "../../../assets/Images/Dashboard/Start.svg";
-import { getGreetingByTime, type Greeting } from "../../service/dataSerice";
+
 import { useNotes } from "../../Common/NotesContext";
 import { days, months } from "../../Common/Constants";
 import NotesImg from "../.../../../../assets/Images/Dashboard/Notes-pana.svg";
@@ -9,6 +9,7 @@ import DateCalendarServerRequest from "../../Common/Calender";
 import EastIcon from "@mui/icons-material/East";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import StatusGraph from "./StatusGraph";
+import { getGreetingByTime, type Greeting } from "../../service/dataSerice";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -165,4 +166,5 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Dashboard
+
