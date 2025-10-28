@@ -14,7 +14,7 @@ const ChallengeDetails = () => {
   const { setCardsData } = useChallenges();
   const [status, setStatus] = useState(challenge.status);
   const [openInstruction, setInstruction] = useState(false);
-  const [currentChallenge, setChallenge] = useState<any>(challenge);
+
 
   const DifficultyStatusColor = (status: string) => {
     if (status === "Easy") return "#1E7F55";
@@ -22,16 +22,19 @@ const ChallengeDetails = () => {
     return "#B00020";
   };
 
-  useEffect(() => {
-    const fetchChallenge = async () => {
-      const storedData = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
-      let data = await getChallengeById(challenge.id);
-      if (storedData[challenge.id]) data = { ...data, ...storedData[challenge.id] };
-      setChallenge(data);
-      setStatus(data?.status);
-    };
-    fetchChallenge();
-  }, [challenge.id]);
+const [challengeData, setChallengeData] = useState<any>(challenge);
+
+useEffect(() => {
+  const fetchChallenge = async () => {
+    const storedData = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
+    let data = await getChallengeById(challenge.id);
+    if (storedData[challenge.id]) data = { ...data, ...storedData[challenge.id] };
+    setChallengeData(data);
+    setStatus(data?.status);
+  };
+  fetchChallenge();
+}, [challenge.id]);
+
 
   const handleStartChallenge = async () => {
     if (status === "Not Started") {
@@ -47,7 +50,7 @@ const ChallengeDetails = () => {
           )
         );
 
-        setChallenge(updatedChallenge);
+        setChallengeData(updatedChallenge);
         setStatus("In Progress");
         window.dispatchEvent(new Event("storage")); 
       }
@@ -68,7 +71,7 @@ const ChallengeDetails = () => {
         prev.map((c: any) => (c.id === challenge.id ? { ...c, status: "Completed" } : c))
       );
 
-      setChallenge(updatedChallenge);
+      setChallengeData(updatedChallenge);
       setStatus("Completed");
       window.dispatchEvent(new Event("storage")); 
     }
@@ -107,7 +110,7 @@ const ChallengeDetails = () => {
       <div className="border border-[#E0E0E0] rounded-[8px] mt-[2rem] mb-[2rem] p-[2rem]">
         <div className="flex justify-between">
           <p className="text-[2rem] font-[800]">
-            {challenge.dayChallenge} - {challenge.title}
+            {challengeData.dayChallenge} - {challengeData.title}
           </p>
           <img src={challenge.icon} className="w-20 h-20" />
         </div>
