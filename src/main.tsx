@@ -23,25 +23,26 @@ const router = createBrowserRouter(
       element: <Layout />,
       children: [
         { index: true, element: <Dashboard /> },
-        { path: "/30-days-challenge", element: <ReactDays /> },
-        { path: "/30-days-challenge/challenge-details/:id", element: <ChallengeDetails /> },
-        { path: "/about-us", element: <AboutUs /> },
-        { path: "/contact-us", element: <ContactUS /> },
-        { path: "/my-planner", element: <Planner /> },
-        { path: "/CodePad-page", element: <Resources /> },
-        { path: "/More-hands-on-Challenges", element: <MoreChallenges /> },
-        { path: "/More-hands-on-Challenges/:categoryName", element: <CategoryChallenges /> },
+        { path: "30-days-challenge", element: <ReactDays /> },
+        { path: "30-days-challenge/challenge-details/:id", element: <ChallengeDetails /> },
+        { path: "about-us", element: <AboutUs /> },
+        { path: "contact-us", element: <ContactUS /> },
+        { path: "my-planner", element: <Planner /> },
+        { path: "CodePad-page", element: <Resources /> },
+        { path: "More-hands-on-Challenges", element: <MoreChallenges /> },
+        { path: "More-hands-on-Challenges/:categoryName", element: <CategoryChallenges /> },
         {
-          path: "/More-hands-on-Challenges/:categoryName/challenge-details/:id",
+          path: "More-hands-on-Challenges/:categoryName/challenge-details/:id",
           element: <ChallengeDetails />,
         },
       ],
     },
   ],
   {
-    basename: "/react-fed/", 
+    basename: "/react-fed/",
   }
 );
+
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
