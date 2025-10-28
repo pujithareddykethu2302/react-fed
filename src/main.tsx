@@ -39,7 +39,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: "/react-fed", 
+    basename: "/react-fed/", 
   }
 );
 
