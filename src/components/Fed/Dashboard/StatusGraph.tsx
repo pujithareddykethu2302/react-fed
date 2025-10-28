@@ -34,6 +34,7 @@ const StatusGraph = () => {
 
 const options = {
   cutout: "70%",
+  maintainAspectRatio: false,
   plugins: {
      legend: {
       display: true,
@@ -55,8 +56,8 @@ const options = {
 
 
   return (
-    <div className="mt-[1rem] px-7">
-      <Doughnut data={data} options={options} />
+    <div className="w-full h-[350px] px-4 mt-[1rem]"> 
+      <Doughnut data={data} options={options}/>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ScheduleImage from "../../../assets/Images/Planner/Schedule-amico.svg";
-import goalsData from "../../../assets/Mock-Data/goals.json"; // your JSON file
+import goalsData from "../../../assets/Mock-Data/goals.json"; 
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 interface Goal {
   text: string;
@@ -67,6 +68,13 @@ const Planner = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-10">
+       <div className="flex items-center mt-1">
+        <a href="/" className="mr-[0.1rem] flex font-[600]">
+          Home
+        </a>
+        <NavigateNextIcon fontSize="small" />
+        <p className="mr-[1rem]">Planner</p>
+      </div>
       <h1 className="text-3xl font-bold text-[#563A9C] mb-2">Goal Planner</h1>
       <p className="text-gray-600 mb-8">
         Plan your monthly, weekly, and daily goals to stay consistent and organized.
