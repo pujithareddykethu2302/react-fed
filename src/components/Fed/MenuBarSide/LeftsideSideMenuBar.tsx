@@ -32,34 +32,34 @@ const LeftsideSideMenuBar = ({CloseMenu, setcloseMenu}:LeftsideSideMenuBar) => {
       icon: (
         <WbIncandescentOutlinedIcon sx={{ color: "white" }} fontSize="small" />
       ),
-      path: "/More-hands-on-Challenges",
+      path: "More-hands-on-Challenges",
     },
     {
       title: "My Planner",
       icon: <ChecklistIcon sx={{ color: "white" }} fontSize="small" />,
-      path: "/my-planner",
+      path: "my-planner",
     },
     {
       title: "30 Days Challenge",
       icon: <MilitaryTechIcon sx={{ color: "white" }} fontSize="small" />,
-      path: "/30-days-challenge",
+      path: "30-days-challenge",
     },
     {
       title: "Contact Us",
       icon: <ContactPageIcon sx={{ color: "white" }} fontSize="small" />,
-      path: "/contact-us",
+      path: "contact-us",
     },
     {
       title: "About Us",
       icon: <InfoIcon sx={{ color: "white" }} fontSize="small" />,
-      path: "/about-us",
+      path: "about-us",
     },
     {
       title: "Code Pad",
       icon: (
         <LibraryBooksOutlinedIcon sx={{ color: "white" }} fontSize="small" />
       ),
-      path: '/CodePad-page',
+      path: 'CodePad-page',
     },
   ];
   return (

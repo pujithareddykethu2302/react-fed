@@ -76,7 +76,12 @@ export const updateChallengeStatus = async (id: string, status: string) => {
   const storedData = JSON.parse(localStorage.getItem("challengesStatus") || "{}");
   storedData[id] = { ...storedData[id], status };
   localStorage.setItem("challengesStatus", JSON.stringify(storedData));
+
+  const challenge = await getChallengeById(id);
+  if (challenge) challenge.status = status;
+  return challenge;
 };
+
 
 export const getGreetingByTime = async (): Promise<Greeting> => {
   const res = await fetch(`${import.meta.env.BASE_URL}data/Captions.json`);

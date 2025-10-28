@@ -77,11 +77,11 @@ useEffect(() => {
     }
 
     if (categoryName) {
-      navigate(`/More-hands-on-Challenges/${categoryName}`, {
+      navigate(`More-hands-on-Challenges/${categoryName}`, {
         state: { refresh: true },
       });
     } else {
-      navigate("/30-days-challenge");
+      navigate("30-days-challenge");
     }
   };
 
@@ -95,8 +95,8 @@ useEffect(() => {
         <button
           className="mr-[0.1rem] flex font-[600] cursor-pointer"
           onClick={() => {
-            if (categoryName) navigate(`/More-hands-on-Challenges/${categoryName}`);
-            else navigate("/30-days-challenge");
+            if (categoryName) navigate(`More-hands-on-Challenges/${categoryName}`);
+            else navigate("30-days-challenge");
           }}
         >
           Challenge Hub
@@ -175,8 +175,8 @@ useEffect(() => {
         <button
           className="px-4 py-2 bg-gray-400 text-white rounded"
           onClick={() => {
-            if (categoryName) navigate(`/More-hands-on-Challenges/${categoryName}`);
-            else navigate("/30-days-challenge");
+            if (categoryName) navigate(`More-hands-on-Challenges/${categoryName}`);
+            else navigate("30-days-challenge");
           }}
         >
           Back
